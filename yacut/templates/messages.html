@@ -1,0 +1,20 @@
+{% if short_link %}
+  Ваша короткая ссылка готова:
+  <a href="{{ short_link }}"> {{ short_link }} </a>
+{% endif %}
+
+{% if form.original_link.errors %}
+  {% for error in form.original_link.errors %}
+  <span style="color:red">{{ error }}</span>
+  {% endfor %}
+{% else %}
+  {% for error in form.custom_id.errors %}
+  <span style="color:red">{{ error }}</span>
+  {% endfor %}
+{% endif %}
+
+{% with messages = get_flashed_messages() %}
+  {% for message in messages %}
+    <span style="color:red">{{ message }}</span>
+  {% endfor %}
+{% endwith %}
