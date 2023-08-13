@@ -1,5 +1,7 @@
 from flask import request, jsonify
 
+from http import HTTPStatus
+
 from yacut import app
 from yacut.error_handlers import (InvalidAPIUsage, InvalidLength,
                                   InvalidRegex, EmploymentShortId,
@@ -31,12 +33,12 @@ def create_new_short_link():
         )
     except ErrorGenerations:
         raise InvalidAPIUsage(ERROR_GENERATIONS)
-    return jsonify(url_map.to_dict()), 201
+    return jsonify(url_map.to_dict()), HTTPStatus.CREATED
 
 
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
 def get_short_link(short_id):
     object_url_map = URLMap.get(short_id)
     if not object_url_map:
-        raise InvalidAPIUsage(ERROR_SHORT_ID, 404)
-    return jsonify(url=object_url_map.original), 200
+        raise InvalidAPIUsage(ERROR_SHORT_ID, HTTPStatus.NOT_FOUND)
+    return jsonify(url=object_url_map.original), HTTPStatus.OK

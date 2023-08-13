@@ -49,7 +49,7 @@
   DATABASE_URI=sqlite:///db.sqlite3
   SECRET_KEY=SECRET_KEY
   ```
-* Создать миграции:
+* Применить миграции:
 
   ```
   flask db upgrade
